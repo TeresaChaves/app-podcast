@@ -1,0 +1,55 @@
+.container-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 20px; /* Margen inferior para separar del grid */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  gap: 20px; /* Espacio entre las celdas */
+  max-width: 1200px; /* Ancho máximo del contenedor */
+  margin: 0 auto; /* Centrar el contenedor */
+}
+
+.grid-item {
+  background-color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(44, 44, 44, 0.5);
+}
+
+.grid-item img {
+  width: 50%;
+  border-radius: 50%;
+}
+
+li {
+  list-style-type: none;
+}
+
+.title-principal-view {
+  text-align: flex-start;
+  font-size: 2rem;
+  margin: 20px 0;
+  color: rgb(21, 90, 155);
+}
+
+.list-name-artist {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.container-title-principal-view {
+  display: flex;
+}
