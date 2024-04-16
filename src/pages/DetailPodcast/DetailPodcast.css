@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar {
+  background-color: #fafafa;
+  box-shadow: 0px 0px 10px rgba(44, 44, 44, 0.5);
+  height: -moz-fit-content;
+  height: fit-content;
+  max-width: 350px;
+  min-height: 300px;
+  padding: 10px;
+}
+
+.podcast-image {
+  width: 100%;
+  max-width: 250px;
+  padding: 20px;
+  border-radius: 30px;
+  /* Ajusta el ancho de la imagen al 100% */
+}
+
+.main-section {
+  flex: 1; /* Hace que la sección principal ocupe el espacio restante */
+  padding: 20px;
+  margin-left: 30%; /* Ajusta el margen izquierdo para que no se superponga con la barra lateral */
+}
+.podcast-title {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.episodes-count {
+  margin-bottom: 20px;
+}
+
+.episode-list {
+  list-style-type: none;
+}
+
+.episode-list li {
+  margin-bottom: 10px;
+}
+.container-section-detail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30%; /* Ancho de la barra lateral */
+  height: 100%; /* Altura igual a la altura de la ventana */
+  padding: 20px;
+  margin-top: 160px;
+  margin-left: 60px;
+}
+.container-header-detail {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+/* Estilos adicionales según sea necesario */

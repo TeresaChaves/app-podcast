@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 160px;
 }
 
 .container-header {
@@ -37,6 +38,10 @@
 li {
   list-style-type: none;
 }
+a {
+  text-decoration: none;
+  color: black;
+}
 
 .title-principal-view {
   text-align: flex-start;
@@ -48,8 +53,32 @@ li {
 .list-name-artist {
   text-transform: uppercase;
   font-size: 0.8rem;
+  font-weight: 500;
+}
+.list-name-author {
+  font-size: 0.8rem;
+  font-weight: 400;
 }
 
 .container-title-principal-view {
-  display: flex;
+  position: fixed;
+  top: 0;
+  right: 700px;
+  width: 100%;
+  z-index: 1000;
+  background-color: white;
+}
+.input-search {
+  padding-right: 20px;
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+.button-search {
+  background-color: rgb(21, 90, 155);
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: white;
 }
