@@ -32,12 +32,10 @@ function EpisodeDetail() {
   }, [podcastid, episodeId]);
   useEffect(() => {}, [episodeDetail]);
 
+  console.log(episodeDetail);
+
   if (loader) {
     return <p>Cargando...</p>;
-  }
-
-  if (!episodeDetail) {
-    return <p>No se encontró el episodio.</p>;
   }
 
   return loader ? (

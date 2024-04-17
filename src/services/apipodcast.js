@@ -1,4 +1,3 @@
-const CORS_PROXY = "https://allorigins.win/get?url=";
 
 
 async function getListPodcast() {
@@ -35,22 +34,27 @@ async function getListPodcast() {
 }
 
 async function getPodcastDetail(podcastId) {
+
+   
+
+
     try {
-        const storedData = localStorage.getItem(`podcastDetail_${podcastId}`);
+         const storedData = localStorage.getItem(`podcastDetail_${podcastId}`);
         const storedTimestamp = localStorage.getItem('podcastsTimestamp');
         const currentTime = new Date().getTime();
         const oneDayInMillis = 24 * 60 * 60 * 1000; 
+
         if (storedData && currentTime - storedTimestamp < oneDayInMillis) {
             return JSON.parse(storedData);
-        }
-        else {
-
-            const response = await fetch(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`, {
-            });
-        
-            const dataFormatDetail = await response.json();
-            const podcastDetailList = dataFormatDetail.results;
-
+        } else {
+            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`)}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const data = await response.json();
+            const dataString = data.contents;
+            const dataObject = JSON.parse(dataString);
+            const podcastDetailList = dataObject.results;
             const results = podcastDetailList.map((podcastDetail) => ({
                 artistName: podcastDetail.artistName,
                 collectionId: podcastDetail.collectionId,
@@ -64,45 +68,13 @@ async function getPodcastDetail(podcastId) {
                 trackId: podcastDetail.trackId,
                 previewUrl: podcastDetail.previewUrl
             }));
-
             localStorage.setItem(`podcastDetail_${podcastId}`, JSON.stringify(results));
-              localStorage.setItem('podcastsTimestamp', currentTime);
-
-        
+            localStorage.setItem('podcastsTimestamp', currentTime);
             return results;
         }
-
-       } catch (error) {
-        console.error('Ocurrió un error al obtener el detalle del podcast sin CORS:', error);
-        
-        // Intentar nuevamente con CORS
-        try {
-            const response = await fetch(`${CORS_PROXY}https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`, {
-                method: 'GET'
-            });
-
-            const dataFormatDetail = await response.json();
-            const podcastDetailList = dataFormatDetail.results;
-
-            const results = podcastDetailList.map((podcastDetail) => ({
-                artistName: podcastDetail.artistName,
-                collectionId: podcastDetail.collectionId,
-                collectionTitle: podcastDetail.collectionName,
-                artworkUrl600: podcastDetail.artworkUrl600,
-                description: podcastDetail.description,
-                shortDescription: podcastDetail.shortDescription,
-                trackTitle: podcastDetail.trackName,
-                trackTimeMillis: podcastDetail.trackTimeMillis,
-                releaseDate: podcastDetail.releaseDate,
-                trackId: podcastDetail.trackId,
-                previewUrl: podcastDetail.previewUrl
-            }));
-
-            return results;
-        } catch (error) {
-            console.error('Ocurrió un error al obtener el detalle del podcast con CORS:', error);
-            return null;
-        }
+    } catch (error) {
+        console.error('Ocurrió un error al obtener el detalle del podcast:', error);
+        throw error; // Re-lanza el error para que lo maneje el código que llama a esta función
     }
 }
 
