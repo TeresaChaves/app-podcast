@@ -4,7 +4,7 @@ import { getPodcastDetail } from "../../services/apipodcast";
 import { NavLink } from "react-router-dom";
 import "./EpisodeDetail.css";
 import SideBar from "../../components/SideBar";
-import AudioPlayer from "react-audio-player";
+import Loader from "../../components/Loader";
 
 function EpisodeDetail() {
   const { episodeId, podcastid } = useParams();
@@ -33,12 +33,6 @@ function EpisodeDetail() {
   useEffect(() => {
     console.log("episodeDetail:ssss", episodeDetail);
   }, [episodeDetail]);
-  const audioPlayerStyles = {
-    width: "100%",
-    borderRadius: "30px",
-    border: "1px solid #ff8c00",
-    fontSize: "1.8rem",
-  };
 
   if (loader) {
     return <p>Cargando...</p>;
@@ -48,7 +42,11 @@ function EpisodeDetail() {
     return <p>No se encontró el episodio.</p>;
   }
 
-  return (
+  return loader ? (
+    <div className="loader">
+      <Loader />
+    </div>
+  ) : (
     <div className="container-principal">
       <div className="container-header-detail">
         <div className="container-title-principal-view">
@@ -63,7 +61,7 @@ function EpisodeDetail() {
           <h2>{episodeDetail.trackTitle}</h2>
           <p>{episodeDetail.description}</p>
 
-          <audio controls autoPlay className="black-audio-player">
+          <audio controls className="black-audio-player">
             <source src={episodeDetail.previewUrl} type="audio/mp3" />
           </audio>
         </div>

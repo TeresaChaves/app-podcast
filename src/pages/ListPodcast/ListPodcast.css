@@ -59,6 +59,27 @@ a {
   font-size: 0.8rem;
   font-weight: 400;
 }
+.loader {
+  position: fixed;
+  top: 40px;
+  right: 80px;
+  padding: 10px;
+  z-index: 9999;
+}
+.circle-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #1b76ff);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: s3 1s infinite linear;
+}
+
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
 
 .container-title-principal-view {
   position: fixed;
@@ -66,7 +87,6 @@ a {
   right: 700px;
   width: 100%;
   z-index: 1000;
-  background-color: white;
 }
 .input-search {
   padding-right: 20px;

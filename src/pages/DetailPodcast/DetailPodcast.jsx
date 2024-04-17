@@ -4,6 +4,7 @@ import { getPodcastDetail } from "../../services/apipodcast";
 import { NavLink } from "react-router-dom";
 import "./DetailPodcast.css";
 import SideBar from "../../components/SideBar";
+import Loader from "../../components/Loader";
 
 function DetailPodcast() {
   const { podcastid } = useParams();
@@ -31,7 +32,9 @@ function DetailPodcast() {
   }
 
   return loader ? (
-    <p>Cargando...</p>
+    <div className="loader">
+      <Loader />
+    </div>
   ) : (
     <div className="container-principal">
       <div className="container-title-principal-view">
@@ -44,7 +47,7 @@ function DetailPodcast() {
       </div>
       <section className="main-section">
         <div className="table-episodes-tittle">
-          <p>Episodes {podcastDetail.length - 1}</p>
+          <p>Episodes {podcastDetail?.length - 1}</p>
           <hr
             style={{
               height: "0.5px",
@@ -66,7 +69,7 @@ function DetailPodcast() {
               <p>Duratión</p>
             </div>
           </div>
-          {podcastDetail.map((episode, index) => (
+          {podcastDetail?.map((episode, index) => (
             <div
               className={`table-row ${index % 2 === 0 ? "even" : "odd"}`}
               key={episode.trackId}

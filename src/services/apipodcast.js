@@ -21,6 +21,7 @@ async function getListPodcast() {
             });
 
             const dataFormat = await response.json();
+            console.log("sdfsdf", dataFormat.feed.entry);
 
             const results = dataFormat.feed.entry.map((podcast) => ({
                 id: podcast.id.attributes['im:id'],
@@ -42,7 +43,7 @@ async function getListPodcast() {
 
 async function getPodcastDetail(podcastId) {
     try {
-       const response = await fetch(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`, {
+        const response = await fetch(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`, {
             method: 'GET',
             headers: {
                 "Access-Control-Allow-Origin": "*",
@@ -50,7 +51,7 @@ async function getPodcastDetail(podcastId) {
                 "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
             }
         });
-        
+
         const dataFormatDetail = await response.json();
         const podcastDetailList = dataFormatDetail.results;
 
@@ -69,12 +70,39 @@ async function getPodcastDetail(podcastId) {
         }));
         
         return results;
-
     } catch (error) {
-        console.error('Ocurrió un error al obtener el detalle del podcast:', error);
-        return null;
+        console.error('Ocurrió un error al obtener el detalle del podcast sin CORS:', error);
+        
+        // Intentar nuevamente con CORS
+        try {
+            const response = await fetch(`${CORS_PROXY}https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`, {
+                method: 'GET'
+            });
+
+            const dataFormatDetail = await response.json();
+            const podcastDetailList = dataFormatDetail.results;
+
+            const results = podcastDetailList.map((podcastDetail) => ({
+                artistName: podcastDetail.artistName,
+                collectionId: podcastDetail.collectionId,
+                collectionTitle: podcastDetail.collectionName,
+                artworkUrl600: podcastDetail.artworkUrl600,
+                description: podcastDetail.description,
+                shortDescription: podcastDetail.shortDescription,
+                trackTitle: podcastDetail.trackName,
+                trackTimeMillis: podcastDetail.trackTimeMillis,
+                releaseDate: podcastDetail.releaseDate,
+                trackId: podcastDetail.trackId,
+                previewUrl: podcastDetail.previewUrl
+            }));
+
+            return results;
+        } catch (error) {
+            console.error('Ocurrió un error al obtener el detalle del podcast con CORS:', error);
+            return null;
+        }
     }
 }
 
-export { getListPodcast, getPodcastDetail };
 
+export { getListPodcast, getPodcastDetail };

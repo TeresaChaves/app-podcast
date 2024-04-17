@@ -1,8 +1,11 @@
 function SideBar({ podcastDetail }) {
+  if (!podcastDetail || podcastDetail.length === 0) {
+    return <p>Cargando...</p>;
+  }
   return (
     <div className="sidebar">
       <img
-        src={podcastDetail[0].artworkUrl600}
+        src={podcastDetail[0]?.artworkUrl600}
         alt="Imagen del podcast"
         className="podcast-image"
       />
