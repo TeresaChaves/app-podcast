@@ -1,6 +1,6 @@
 function SideBar({ podcastDetail }) {
   if (!podcastDetail || podcastDetail.length === 0) {
-    return <p>Cargando...</p>;
+    return <p>Not found</p>;
   }
   return (
     <div className="sidebar">

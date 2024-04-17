@@ -30,9 +30,7 @@ function EpisodeDetail() {
     };
     fetchPodcastDetail();
   }, [podcastid, episodeId]);
-  useEffect(() => {
-    console.log("episodeDetail:ssss", episodeDetail);
-  }, [episodeDetail]);
+  useEffect(() => {}, [episodeDetail]);
 
   if (loader) {
     return <p>Cargando...</p>;

@@ -33,13 +33,13 @@ function ListPostcast() {
         <div>
           <input
             type="text"
-            placeholder="Buscar..."
+            placeholder="Search..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             className="input-search"
           />
 
-          <button className="button-search">Buscar</button>
+          <button className="button-search">Search</button>
         </div>
       </div>
       <div className="grid-container">
@@ -58,7 +58,7 @@ function ListPostcast() {
               <div className="grid-item" key={podcast.id}>
                 <img src={podcast.img} alt={podcast.name} />
                 <h2 className="list-name-artist">{podcast.name}</h2>
-                <p className="list-name-author">Author:{podcast.author}</p>
+                <p className="list-name-author">Author: {podcast.author}</p>
               </div>
             </NavLink>
           ))}

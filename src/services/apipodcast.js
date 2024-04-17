@@ -37,7 +37,7 @@ async function getListPodcast() {
 async function getPodcastDetail(podcastId) {
     try {
         const storedData = localStorage.getItem(`podcastDetail_${podcastId}`);
-           const storedTimestamp = localStorage.getItem('podcastsTimestamp');
+        const storedTimestamp = localStorage.getItem('podcastsTimestamp');
         const currentTime = new Date().getTime();
         const oneDayInMillis = 24 * 60 * 60 * 1000; 
         if (storedData && currentTime - storedTimestamp < oneDayInMillis) {
@@ -45,9 +45,7 @@ async function getPodcastDetail(podcastId) {
         }
         else {
 
-
             const response = await fetch(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`, {
-         
             });
         
             const dataFormatDetail = await response.json();

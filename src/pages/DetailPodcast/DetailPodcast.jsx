@@ -19,7 +19,6 @@ function DetailPodcast() {
     };
     fetchPodcastDetail();
   }, [podcastid]);
-  console.log(podcastDetail);
 
   function formatDate(dateString) {
     const date = new Date(dateString);
@@ -69,7 +68,7 @@ function DetailPodcast() {
               <p>Duratión</p>
             </div>
           </div>
-          {podcastDetail?.map((episode, index) => (
+          {podcastDetail?.slice(1).map((episode, index) => (
             <div
               className={`table-row ${index % 2 === 0 ? "even" : "odd"}`}
               key={episode.trackId}

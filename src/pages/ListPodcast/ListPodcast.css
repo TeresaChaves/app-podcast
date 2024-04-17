@@ -35,14 +35,6 @@
   border-radius: 50%;
 }
 
-li {
-  list-style-type: none;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
-
 .title-principal-view {
   text-align: flex-start;
   font-size: 2rem;
