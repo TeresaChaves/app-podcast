@@ -4,6 +4,7 @@ import { getPodcastDetail } from "../../services/apipodcast";
 import { NavLink } from "react-router-dom";
 import "./EpisodeDetail.css";
 import SideBar from "../../components/SideBar";
+import AudioPlayer from "react-audio-player";
 
 function EpisodeDetail() {
   const { episodeId, podcastid } = useParams();
@@ -15,31 +16,11 @@ function EpisodeDetail() {
     const fetchPodcastDetail = async () => {
       try {
         const response = await getPodcastDetail(podcastid);
-        console.log("response:", response); // Verifica el contenido de response
-
         setPodcastDetail(response);
-
-        // Verifica los trackId de cada objeto en response
-        response.forEach((episode) => {
-          console.log("trackId:", episode.trackId);
-        });
-
-        // Convierte episodeId a un número
         const episodeIdNumber = parseInt(episodeId, 10);
-
-        // Busca el episodio con el episodeId
         const episode = response.find((episode) => {
-          console.log(
-            "Comparando episodeId:",
-            episodeIdNumber,
-            "con trackId:",
-            episode.trackId
-          );
-          console.log(typeof episodeIdNumber, typeof episode.trackId); // Verifica los tipos de datos (number vs number)
           return episode.trackId === episodeIdNumber;
         });
-        console.log("episode:", episode); // Verifica el episodio encontrado
-
         setEpisodeDetail(episode);
         setLoader(false);
       } catch (error) {
@@ -49,6 +30,15 @@ function EpisodeDetail() {
     };
     fetchPodcastDetail();
   }, [podcastid, episodeId]);
+  useEffect(() => {
+    console.log("episodeDetail:ssss", episodeDetail);
+  }, [episodeDetail]);
+  const audioPlayerStyles = {
+    width: "100%",
+    borderRadius: "30px",
+    border: "1px solid #ff8c00",
+    fontSize: "1.8rem",
+  };
 
   if (loader) {
     return <p>Cargando...</p>;
@@ -69,15 +59,14 @@ function EpisodeDetail() {
         <div className="container-section-detail">
           <SideBar podcastDetail={podcastDetail} />
         </div>
+        <div className="container-player-episode">
+          <h2>{episodeDetail.trackTitle}</h2>
+          <p>{episodeDetail.description}</p>
 
-        <h1>{episodeDetail.trackTitle}</h1>
-        <img src={episodeDetail.artworkUrl600} alt="Podcast Artwork" />
-        <h2>{episodeDetail.artistName}</h2>
-        <p>{episodeDetail.description}</p>
-        <p>
-          {episodeDetail.trackTitle} {episodeDetail.releaseDate}
-        </p>
-        <p>{episodeDetail.collectionTitle}</p>
+          <audio controls autoPlay className="black-audio-player">
+            <source src={episodeDetail.previewUrl} type="audio/mp3" />
+          </audio>
+        </div>
       </div>
     </div>
   );
