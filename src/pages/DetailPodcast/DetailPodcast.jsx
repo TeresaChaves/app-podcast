@@ -94,9 +94,7 @@ function DetailPodcast() {
                 to={`/podcast/${podcastid}/episode/${episode.trackId}`}
                 className="table-cell"
               >
-                <div>
-                  {(episode.trackTimeMillis / 60000).toFixed(2)} minutos
-                </div>
+                <div>{(episode.trackTimeMillis / 60000).toFixed(2)}</div>
               </NavLink>
               <hr />
             </div>

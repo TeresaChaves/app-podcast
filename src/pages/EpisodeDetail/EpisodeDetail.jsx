@@ -55,11 +55,18 @@ function EpisodeDetail() {
           </NavLink>
         </div>
         <div className="container-section-detail">
-          <SideBar podcastDetail={podcastDetail} />
+          <NavLink to={`/podcast/${podcastid}/`}>
+            <SideBar podcastDetail={podcastDetail} />
+          </NavLink>
         </div>
         <div className="container-player-episode">
           <h2>{episodeDetail.trackTitle}</h2>
-          <p>{episodeDetail.description}</p>
+          <p>
+            {" "}
+            <div
+              dangerouslySetInnerHTML={{ __html: episodeDetail.description }}
+            />
+          </p>
 
           <audio controls className="black-audio-player">
             <source src={episodeDetail.previewUrl} type="audio/mp3" />
